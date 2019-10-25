@@ -55,6 +55,7 @@ def LogisticsRegressionClassifierModel():
     #Split train and test data set
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=200)
     
+    print(X_train)
     
     #Get logistic regression classifier object
     mdiProjectLogisticRegressionclassifier = LogisticRegression()
@@ -74,17 +75,17 @@ def LogisticsRegressionClassifierModel():
     with open("mdiProjectLogisticRegressionY_test.pkl",'wb') as mdiProjectLogisticRegressionY_test_Pickle:
         pickle.dump(y_test, mdiProjectLogisticRegressionY_test_Pickle, protocol = 2)
     
-    #Write X_test as pickle file
-    with open("mdiProjectLogisticRegressionX_test.pkl",'wb') as mdiProjectLogisticRegressionX_test_Pickle:
-        pickle.dump(X_test, mdiProjectLogisticRegressionX_test_Pickle, protocol = 2)
-    
-    #Write y_test as pickle file
-    with open("mdiProjectLogisticRegressionY_test.pkl",'wb') as mdiProjectLogisticRegressionY_test_Pickle:
-        pickle.dump(y_test, mdiProjectLogisticRegressionY_test_Pickle, protocol = 2)
-    
     #Write tfidfvectorizer as pickle file
     with open("mdiProjectTfidfvectorizer.pkl",'wb') as mdiProjectTfidfvectorizer_Pickle:
         pickle.dump(mdiProjectTfidfvectorizer, mdiProjectTfidfvectorizer_Pickle, protocol = 2)
+    
+    #Write X_train as pickle file
+    with open("mdiProjectLogisticRegressionX_train.pkl",'wb') as mdiProjectLogisticRegressionX_train_Pickle:
+        pickle.dump(X_train, mdiProjectLogisticRegressionX_train_Pickle, protocol = 2)
+    
+    #Write y_train as pickle file
+    with open("mdiProjectLogisticRegressionY_train.pkl",'wb') as mdiProjectLogisticRegressionY_train_Pickle:
+        pickle.dump(y_train, mdiProjectLogisticRegressionY_train_Pickle, protocol = 2)
     
 if __name__ == "__main__":
     LogisticsRegressionClassifierModel() 

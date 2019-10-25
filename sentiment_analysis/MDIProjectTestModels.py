@@ -72,9 +72,6 @@ def naiveBayesClassifierTestModelResult():
         else:
             mdiProjectPredictedSentiments[predictedSentimentPos] = 0
             
-    #print(mdiProjectActualSentiments)
-    #print(mdiProjectPredictedSentiments)
-    
     result = confusion_matrix(mdiProjectActualSentiments, mdiProjectPredictedSentiments)
     print(result)
     
@@ -85,27 +82,55 @@ def naiveBayesClassifierTestModelResult():
     
 def logisticRegressionClassifierTestModel():
     
-    
+    #Load logistic regression classification pickle file
     with open("mdiProjectLogisticRegressionclassifier.pkl","rb") as mdiProjectLogisticRegressionclassifier:
         mdiProjectLogisticRegressionclassifierModel = pickle.load(mdiProjectLogisticRegressionclassifier)
     
-    
+    #Load X_test data set pickle file
     with open("mdiProjectLogisticRegressionX_test.pkl","rb") as mdiProjectLogisticRegressionX_test:
         X_test = pickle.load(mdiProjectLogisticRegressionX_test)
     
+    #Load y_test data set pickle file
     with open("mdiProjectLogisticRegressionY_test.pkl","rb") as mdiProjectLogisticRegressionY_test:
         y_test = pickle.load(mdiProjectLogisticRegressionY_test)
     
-    # Testing model performance
-    mdiProjectSentimentPredict = mdiProjectLogisticRegressionclassifierModel.predict(X_test)
-
-    mdiProjectLogisticRegressionCnfusionMatrix = confusion_matrix(y_test, mdiProjectSentimentPredict)
-    print(mdiProjectLogisticRegressionCnfusionMatrix)
+    #Load X_train data set pickle file
+    with open("mdiProjectLogisticRegressionX_train.pkl","rb") as mdiProjectLogisticRegressionX_train:
+        X_train = pickle.load(mdiProjectLogisticRegressionX_train)
     
-    print(classification_report(y_test, mdiProjectSentimentPredict))  
+    #Load y_train data set pickle file
+    with open("mdiProjectLogisticRegressionY_train.pkl","rb") as mdiProjectLogisticRegressionY_train:
+        y_train = pickle.load(mdiProjectLogisticRegressionY_train)
+        
+    #Predict for X_train data
+    y_train_predict = mdiProjectLogisticRegressionclassifierModel.predict(X_train)
     
-    accuracy = accuracy_score(y_test, mdiProjectSentimentPredict)
-    print(accuracy)
+    #Predict for X_test data
+    y_test_predict = mdiProjectLogisticRegressionclassifierModel.predict(X_test)
+    
+    #Confussion matrix for training set
+    confusionMatrixTrain = confusion_matrix(y_train, y_train_predict)
+    
+    #Confussion matrix for test set
+    confusionMatrixTest = confusion_matrix(y_test, y_test_predict)
+    
+    print(confusionMatrixTrain)
+    print(confusionMatrixTest)
+    
+    #Classification report of test set
+    print(classification_report(y_test,y_test_predict))
+    
+    #Classification report of training set
+    print(classification_report(y_train,y_train_predict))
+    
+    #Model accuracy for test data
+    testAccuracy = accuracy_score(y_test, y_test_predict)
+    
+    #Model accuracy for training data
+    trainAccuracy = accuracy_score(y_train, y_train_predict)
+    
+    print(testAccuracy)
+    print(trainAccuracy)
     
 if __name__ == "__main__":
     logisticRegressionClassifierTestModel()
