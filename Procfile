@@ -1,1 +1,1 @@
-web: gunicorn MdiProjectPredict:app
+web: gunicorn app:app
